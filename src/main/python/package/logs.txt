@@ -1,0 +1,13 @@
+Problème : //li[contains(@class, "t-24")
+Problème : //li[@class="t-16 t-black t-normal inline-block"]
+Problème : //a[@data-control-name="background_details_company"]/div/h3
+Problème : //ul[@class="pv-top-card--experience-list"]/li
+Problème : //li[contains(@class, "t-24")
+Problème : //li[@class="t-16 t-black t-normal inline-block"]
+Problème : //a[@data-control-name="background_details_company"]/div/h3
+Problème : //ul[@class="pv-top-card--experience-list"]/li
+Problème : name
+Problème : name
+Problème : name
+Problème : name
+Problème : name

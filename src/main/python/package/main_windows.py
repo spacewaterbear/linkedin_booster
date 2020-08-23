@@ -1,5 +1,20 @@
 # https://www.jetbrains.com/help/pycharm/using-code-editor.html
-from PySide2 import QtWidgets,QtCore, QtGui
+from PySide2 import QtWidgets, QtCore
+from package.booster_class import LinkedinBooster
+from package.scrap_dic import linkedin_d
+from selenium import webdriver
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class Worker(QtCore.QObject):
@@ -8,8 +23,15 @@ class Worker(QtCore.QObject):
         super().__init__()
 
     def app(self):
+        print("Starting")
+        driver = webdriver.Chrome()
+        driver.get("https://www.linkedin.com/")
+        driver.maximize_window()
+        lb = LinkedinBooster(driver, linkedin_d=linkedin_d)
+        lb.linkedin_connexion()
+        lb.run()
 
-        print("finally !")
+
         self.finished.emit()
 
 class MainWindow(QtWidgets.QWidget):
@@ -34,6 +56,8 @@ class MainWindow(QtWidgets.QWidget):
         self.spn_pwd_link = QtWidgets.QLineEdit()
         self.btn_on = QtWidgets.QPushButton("Lancer l'application")
         self.btn_off = QtWidgets.QPushButton("Arrêter l'application")
+        self.lbl_search = QtWidgets.QLabel("Tapez votre recherche")
+        self.spn_search = QtWidgets.QLineEdit()
 
     def modify_widgets(self):
         css_file = self.ctx.get_resource("style.css")
@@ -52,11 +76,12 @@ class MainWindow(QtWidgets.QWidget):
         self.main_layout.addWidget(self.spn_pwd_link, 5, 0, 1, 2)
         self.main_layout.addWidget(self.btn_on, 6, 0, 1, 1)
         self.main_layout.addWidget(self.btn_off, 6, 1, 1, 1)
+        self.main_layout.addWidget(self.lbl_search, 7, 0, 1, 2)
+        self.main_layout.addWidget(self.spn_search, 8, 0, 1, 2)
 
 
     def setup_connections(self):
         self.btn_on.clicked.connect(self.launch)
-
 
     def is_creds_ok(self):
         return True
@@ -77,38 +102,3 @@ class MainWindow(QtWidgets.QWidget):
             msg_box.exec_()
             return None
 
-#
-# from PySide2 import QtWidgets
-#
-# class MainWindow(QtWidgets.QWidget):
-#     def __init__(self):
-#         super().__init__()
-#         self.setup_ui()
-#
-#     def setup_ui(self):
-#         self.create_widgets()
-#         self.modify_widgets()
-#         self.create_layouts()
-#         self.add_widgets_to_layouts()
-#         self.setup_connections()
-#
-#     def create_widgets(self):
-#         self.btn_clique = QtWidgets.QPushButton("Clique")
-#
-#     def modify_widgets(self):
-#         pass
-#
-#     def create_layouts(self):
-#         self.main_layout = QtWidgets.QVBoxLayout(self)
-#
-#     def add_widgets_to_layouts(self):
-#         self.main_layout.addWidget(self.btn_clique)
-#
-#     def setup_connections(self):
-#         self.btn_clique.clicked.connect(self.bouton_clicked)
-#
-#     def bouton_clicked(self):
-#         message_box = QtWidgets.QMessageBox()
-#         message_box.setWindowTitle("Cool")
-#         message_box.setText("Tu a réussi frère")
-#         message_box.exec_()
